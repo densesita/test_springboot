@@ -9,6 +9,8 @@ dependencias:
 ### Como correr swagger
 Se puede hacer uso de swagger en la siguiente URL 
 http://localhost:8080/userms/swagger-ui.html#
+http://localhost:8080/userms/h2-console
+
 
 ### Como correr los test
 - Run all the unit test classes.

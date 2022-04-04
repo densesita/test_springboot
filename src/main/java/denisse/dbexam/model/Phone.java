@@ -1,4 +1,4 @@
-package denisse.dbexam.user.model;
+package denisse.dbexam.model;
 
 import java.io.Serializable;
 
@@ -21,19 +21,12 @@ import org.hibernate.annotations.GenericGenerator;
 @Access(value = AccessType.PROPERTY)
 public class Phone implements Serializable {
 
-	private static final long serialVersionUID = 43756565755L;
+	private static final long serialVersionUID = 43756555L;
 
 	private String id;
-
-	@Column(name = "number")
 	private String number;
-	@Column(name = "citycode")
 	private String cityCode;
-	@Column(name = "countrycode")
 	private String countryCode;
-
-	@JoinColumn(name = "fk_user", nullable = false)
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User user;
 
 	@Id
@@ -47,7 +40,8 @@ public class Phone implements Serializable {
 	public void setId(String id) {
 		this.id = id;
 	}
-
+	
+	@Column(name = "NUMBER")
 	public String getNumber() {
 		return number;
 	}
@@ -55,7 +49,7 @@ public class Phone implements Serializable {
 	public void setNumber(String number) {
 		this.number = number;
 	}
-
+	@Column(name = "CITY_CODE")
 	public String getCityCode() {
 		return cityCode;
 	}
@@ -63,13 +57,22 @@ public class Phone implements Serializable {
 	public void setCityCode(String cityCode) {
 		this.cityCode = cityCode;
 	}
-
+	@Column(name = "COUNTRY_CODE")
 	public String getCountryCode() {
 		return countryCode;
 	}
 
 	public void setCountryCode(String countryCode) {
 		this.countryCode = countryCode;
+	}
+	@JoinColumn(name = "user_id", nullable = true)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

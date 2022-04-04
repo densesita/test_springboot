@@ -1,16 +1,15 @@
 package denisse.dbexam;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.Assert;
 
-import denisse.dbexam.user.UserService;
+import denisse.dbexam.model.User;
+import denisse.dbexam.service.UserService;
 import denisse.dbexam.user.dto.UserDTO;
-import denisse.dbexam.user.model.User;
-import denisse.dbexam.util.EmailException;
 
 @SpringBootTest
 class DbexamApplicationTests {
@@ -18,38 +17,20 @@ class DbexamApplicationTests {
 	@Autowired
 	private UserService userService;
 
+	@SuppressWarnings("deprecation")
 	@Test
-	void testEmailError() {
-		try {
-			UserDTO user = new UserDTO();
-			user.setEmail("sahara");
-			userService.apiCreateUser(user);
-		} catch (EmailException e) {
-			org.junit.jupiter.api.Assertions.assertTrue(true);
-			return;
-		} catch (Exception e) {
-			org.junit.jupiter.api.Assertions.assertTrue(true);
-			return;
-		}
-		fail("Validation Email  fail ");
+	void testEmailFormatError() {
+		String email = "sahara";
+		boolean result = userService.validateEmail(email); 
+		Assert.isTrue(!result);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
-	void testEmailExito() {
-		try {
-			UserDTO user = new UserDTO();
-			user.setEmail("sahara@gmail.com");
-			user.setName("Sahara");
-			user.setPassword("password");
-			userService.apiCreateUser(user);
-			org.junit.jupiter.api.Assertions.assertTrue(true);
-		} catch (EmailException e) {
-			fail("Email error");
+	void testEmailFormatExito() {
+		String email = "sahara@gmail.com";
+		Assert.isTrue(userService.validateEmail(email));
 
-		} catch (Exception e) {
-			fail(" error");
-
-		}
 	}
 
 	@Test
@@ -58,15 +39,12 @@ class DbexamApplicationTests {
 			UserDTO user = new UserDTO();
 			user.setEmail("creaUser@gmail.com");
 			user.setName("User01");
-			user.setPassword("password");
+			user.setPassword("password1234");
 			userService.apiCreateUser(user);
 			//
 			User t = userService.getUser(user.getEmail());
 			org.junit.jupiter.api.Assertions.assertTrue(t != null);
-		} catch (EmailException e) {
-			fail("Email error");
-
-		} catch (Exception e) {
+		}catch (Exception e) {
 			fail(" error");
 
 		}

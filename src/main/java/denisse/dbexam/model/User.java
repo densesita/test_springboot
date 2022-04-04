@@ -1,20 +1,22 @@
-package denisse.dbexam.user.model;
+package denisse.dbexam.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import denisse.dbexam.util.StatusEnum;
 
 @Entity
 @Table(name = "users")
@@ -24,22 +26,15 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 15159965367L;
 
 	private String id;
-
-	private String name;
-
+	private String name;          
 	private String email;
-
 	private String password;
-
-	private String phones;
-
-	private String status;
-
+    private StatusEnum status;
 	private Date created;
 	private Date modified;
 	private Date lastLogin;
 	private String token;
-	private boolean isActive;
+	private Boolean isActive;
 
 	@Id
 	@GeneratedValue(generator = "uuid")
@@ -71,7 +66,6 @@ public class User implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -79,15 +73,25 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public String getStatus() {
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name = "STATUS")
+	public StatusEnum getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(StatusEnum status) {
 		this.status = status;
 	}
 
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	@Column(name = "CREATED")
 	public Date getCreated() {
 		return created;
 	}
@@ -95,7 +99,7 @@ public class User implements Serializable {
 	public void setCreated(Date created) {
 		this.created = created;
 	}
-
+	@Column(name = "MODIFIED")
 	public Date getModified() {
 		return modified;
 	}
@@ -103,7 +107,7 @@ public class User implements Serializable {
 	public void setModified(Date modified) {
 		this.modified = modified;
 	}
-
+	@Column(name = "LAST_LOGIN")
 	public Date getLastLogin() {
 		return lastLogin;
 	}
@@ -111,7 +115,7 @@ public class User implements Serializable {
 	public void setLastLogin(Date lastLogin) {
 		this.lastLogin = lastLogin;
 	}
-
+	@Column(name = "TOKEN")
 	public String getToken() {
 		return token;
 	}
@@ -119,22 +123,16 @@ public class User implements Serializable {
 	public void setToken(String token) {
 		this.token = token;
 	}
-
-	public boolean isActive() {
+	@Column(name = "ACTIVE")
+	public Boolean isActive() {
 		return isActive;
 	}
 
-	public void setActive(boolean isActive) {
+	public void setActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
 
-	public String getPhones() {
-		return phones;
-	}
 
-	public void setPhones(String phones) {
-		this.phones = phones;
-	}
 
 
 

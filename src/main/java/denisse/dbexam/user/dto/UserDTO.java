@@ -2,7 +2,8 @@ package denisse.dbexam.user.dto;
 
 import java.util.List;
 
-import denisse.dbexam.user.model.Phone;
+import javax.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,14 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
-	
+	@Size(max=10,min=5,message="criteria not met, minimun 5 max 10")
 	private String name;
-
 	private String email;
-
+//	@Size(max=12,min=6,message="criteria not met, minimun 6 max 12")
 	private String password;
-	
-	private List<Phone> phones;
-	
+	private List<PhoneDTO> phones;
 
 }

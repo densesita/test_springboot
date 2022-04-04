@@ -1,6 +1,6 @@
 package denisse.dbexam.user.dto;
 
-import denisse.dbexam.user.model.User;
+import denisse.dbexam.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

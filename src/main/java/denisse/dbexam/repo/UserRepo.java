@@ -1,9 +1,9 @@
-package denisse.dbexam.user;
+package denisse.dbexam.repo;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import denisse.dbexam.user.model.User;
+import denisse.dbexam.model.User;
 //public interface BookRepository extends CrudRepository<Book, Long>
 @Repository
 public interface UserRepo

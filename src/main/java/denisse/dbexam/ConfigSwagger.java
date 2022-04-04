@@ -1,4 +1,4 @@
-package denisse.dbexam.util;
+package denisse.dbexam;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,7 @@ public class ConfigSwagger {
 	@Bean
 	public Docket productApi() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("denisse.dbexam.user")).build().apiInfo(apiEndPointsInfo());
+				.apis(RequestHandlerSelectors.basePackage("denisse.dbexam.controller")).build().apiInfo(apiEndPointsInfo());
 	}
 
 	private ApiInfo apiEndPointsInfo() {
