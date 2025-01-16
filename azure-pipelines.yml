@@ -1,0 +1,29 @@
+trigger:
+- main
+
+pool:
+ vmImage: 'ubuntu-latest'
+
+variables:
+ keyVaultName: 'your-key-vault-name'
+ firebaseConfigSecret: 'firebase_config.json'
+ firebaseTokenSecret: 'firebase_token'
+ testersFile: 'testers.txt'
+
+stages:
+- stage: BuildAndDistribute
+  jobs:
+  - job: BuildAndDistribute
+    steps:
+    - task: AzureKeyVault@2
+      displayName: 'Get Firebase Configuration'
+      inputs:
+        azureSubscription: 'your-azure-subscription'
+        keyVaultName: $(keyVaultName)
+        secrets: $(firebaseConfigSecret),$(firebaseTokenSecret)
+    - task: FirebaseExtension@1
+      displayName: 'Distribute App'
+      inputs:
+        firebaseToken: $(firebaseTokenSecret)
+        firebaseConfig: $(firebaseConfigSecret)
+        testers: $(testersFile)
