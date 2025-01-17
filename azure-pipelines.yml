@@ -5,25 +5,35 @@ pool:
  vmImage: 'ubuntu-latest'
 
 variables:
- keyVaultName: 'your-key-vault-name'
- firebaseConfigSecret: 'firebase_config.json'
- firebaseTokenSecret: 'firebase_token'
- testersFile: 'testers.txt'
+ build_path: mobile-release/mobile-app-qa
+ publish_path_android: mobile-release/mobile-app-qa/platforms/android/app/build/outputs/apk/debug/app-debug.apk
+ publish_path_ios: mobile-release/mobile-app-qa/platforms/ios/build/Release-iphoneos/CMF QA.ipa
+ FIREBASE_SERVICE_ACCOUNT_JSON: mobile-release/mobile-app-qa/tmp/cmf-distri-firebase.json
 
 stages:
 - stage: BuildAndDistribute
   jobs:
   - job: BuildAndDistribute
     steps:
-    - task: AzureKeyVault@2
-      displayName: 'Get Firebase Configuration'
+    - task: Bash@3
       inputs:
-        azureSubscription: 'your-azure-subscription'
-        keyVaultName: $(keyVaultName)
-        secrets: $(firebaseConfigSecret),$(firebaseTokenSecret)
-    - task: FirebaseExtension@1
-      displayName: 'Distribute App'
+        targetType: 'inline'
+        script: |
+          cat $(FIREBASE_SERVICE_ACCOUNT_JSON)
+      displayName: 'Print JSON Contents'
+    - task: Npm@1
       inputs:
-        firebaseToken: $(firebaseTokenSecret)
-        firebaseConfig: $(firebaseConfigSecret)
-        testers: $(testersFile)
+        command: custom
+        customCommand: install -g firebase-tools
+      displayName: "Install firebase-tools"
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          firebase --version
+      displayName: "Print firebase version"
+    - bash: | 
+        export GOOGLE_APPLICATION_CREDENTIALS=$(FIREBASE_SERVICE_ACCOUNT_JSON)
+        echo $GOOGLE_APPLICATION_CREDENTIALS
+        firebase appdistribution:distribute $(publish_path_android) --release-notes "Nueva versión" --app 1:401768650475:android:037e6d5a12bf46698a10ae --debug
+        displayName: "Setting GOOGLE_APPLICATION_CREDENTIALS env"
