@@ -8,7 +8,7 @@ variables:
  build_path: mobile-release/mobile-app-qa
  publish_path_android: mobile-release/mobile-app-qa/platforms/android/app/build/outputs/apk/debug/app-debug.apk
  publish_path_ios: mobile-release/mobile-app-qa/platforms/ios/build/Release-iphoneos/CMF QA.ipa
- FIREBASE_SERVICE_ACCOUNT_JSON: mobile-release/mobile-app-qa/tmp/cmf-distri-firebase.json
+ FIREBASE_SERVICE_ACCOUNT_JSON: mobile-release/google-services.json
 
 stages:
 - stage: BuildAndDistribute
