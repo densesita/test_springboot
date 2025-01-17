@@ -1,9 +1,6 @@
 trigger:
 - main
 
-pool:
- vmImage: 'ubuntu-latest'
-
 variables:
  build_path: mobile-release/mobile-app-qa
  publish_path_android: mobile-release/mobile-app-qa/platforms/android/app/build/outputs/apk/debug/app-debug.apk
