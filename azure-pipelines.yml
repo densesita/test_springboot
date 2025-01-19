@@ -11,6 +11,9 @@ stages:
 - stage: BuildAndDistribute
   jobs:
   - job: BuildAndDistribute
+    pool:
+     name: Default
+     demands: Agent.Name -equals Dense
     steps:
     - task: Bash@3
       inputs:
