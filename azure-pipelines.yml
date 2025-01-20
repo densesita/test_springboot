@@ -26,12 +26,6 @@ stages:
         command: custom
         customCommand: install -g firebase-tools
       displayName: "Install firebase-tools"
-    - task: Bash@3
-      inputs:
-        targetType: 'inline'
-        script: |
-          firebase --version
-      displayName: "Print firebase version"
     - bash: | 
         export GOOGLE_APPLICATION_CREDENTIALS=$(FIREBASE_SERVICE_ACCOUNT_JSON)
         echo $GOOGLE_APPLICATION_CREDENTIALS
