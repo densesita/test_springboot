@@ -38,5 +38,5 @@ stages:
     - task: Npm@1
       inputs:
         command: custom
-        customCommand: firebase appdistribution:distribute $(publish_path_android) --release-notes 'Nueva versión' --app 1:401768650475:android:037e6d5a12bf46698a10ae --debug
+        customCommand: firebase appdistribution:distribute $(publish_path_android) --release-notes "Nueva versión" --app 1:401768650475:android:037e6d5a12bf46698a10ae
       displayName: "firebase-distribute"
