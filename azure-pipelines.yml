@@ -26,8 +26,8 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          nvm use 22
-      displayName: "use node 22"
+          node -v
+      displayName: "Print node version"
     - task: Npm@1
       inputs:
         command: custom
