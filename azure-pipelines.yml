@@ -12,19 +12,18 @@ stages:
      name: Default
      demands: Agent.Name -equals Dense
     steps:
-    - task: AzureKeyVault@2
-      displayName: 'Get Firebase Service Account JSON'
+    - task: DownloadSecureFile@1
+      name: firebaseFile
+      displayName: 'Download Securely Firebase json account'
       inputs:
-        azureSubscription: 'e7f8df62-f46c-40e2-862b-62c2173782fd'
-        keyVaultName: 'firebase-dsitribution'
-        secretName: 'firebase-service-account'
+        secureFile: 'google-services.json'
     - task: Npm@1
       inputs:
         command: custom
         customCommand: install -g firebase-tools
       displayName: "Install firebase-tools"
     - bash: | 
-        set GOOGLE_APPLICATION_CREDENTIALS=$(FB-SERV-ACC)
+        set GOOGLE_APPLICATION_CREDENTIALS=$(firebaseFile.secureFilePath)/google-services.json
         echo %GOOGLE_APPLICATION_CREDENTIALS%
         firebase appdistribution:distribute "mobile-release/mobile-app-qa/platforms/android/app/build/outputs/apk/debug/app-debug.apk" --release-notes "Nueva versión" --app 1:401768650475:android:037e6d5a12bf46698a10ae --debug
         displayName: "Setting GOOGLE_APPLICATION_CREDENTIALS env"
