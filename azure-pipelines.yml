@@ -25,12 +25,12 @@ stages:
         customCommand: firebase --version
       displayName: "firebase-version"
     - script: |
-        echo Installing $(firebaseFile.secureFilePath) to the trusted CA directory...
-    - bash: | 
+        echo Installing $(firebaseFile.secureFilePath) to the directory...
+    - script: | 
         set GOOGLE_APPLICATION_CREDENTIALS=$(firebaseFile.secureFilePath)/google-services.json
         echo %GOOGLE_APPLICATION_CREDENTIALS%
     - task: Npm@1
       inputs:
         command: custom
-        customCommand: firebase appdistribution:distribute "mobile-release/mobile-app-qa/platforms/android/app/build/outputs/apk/debug/app-debug.apk" --release-notes "Nueva versión" --app 1:401768650475:android:037e6d5a12bf46698a10ae --debug
+        customCommand: firebase appdistribution:distribute 'mobile-release/mobile-app-qa/platforms/android/app/build/outputs/apk/debug/app-debug.apk' --release-notes 'Nueva versión' --app 1:401768650475:android:037e6d5a12bf46698a10ae --debug
       displayName: "firebase-distribute"
