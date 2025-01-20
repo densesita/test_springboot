@@ -1,9 +1,6 @@
 trigger:
 - main
 
-variables:
-- group: FB-SERV-ACC
-
 stages:
 - stage: BuildAndDistribute
   jobs:
