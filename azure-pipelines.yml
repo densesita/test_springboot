@@ -24,11 +24,11 @@ stages:
         command: custom
         customCommand: firebase --version
       displayName: "firebase-version"
-
+    - script: |
+        echo Installing $(firebaseFile.secureFilePath) to the trusted CA directory...
     - bash: | 
         set GOOGLE_APPLICATION_CREDENTIALS=$(firebaseFile.secureFilePath)/google-services.json
         echo %GOOGLE_APPLICATION_CREDENTIALS%
-        displayName: "Setting GOOGLE_APPLICATION_CREDENTIALS env"
     - task: Npm@1
       inputs:
         command: custom
