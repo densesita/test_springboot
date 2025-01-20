@@ -1,6 +1,7 @@
 trigger:
 - main
-
+variables:
+   publish_path_android: mobile-release/app-debug.apk
 stages:
 - stage: BuildAndDistribute
   jobs:
