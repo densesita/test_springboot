@@ -20,7 +20,7 @@ stages:
         customCommand: install -g firebase-tools
       displayName: "Install firebase-tools"
     - bash: | 
-        echo "hola"
+        echo ${firebaseFile.secureFilePath}
     - bash: | 
         set GOOGLE_APPLICATION_CREDENTIALS=$(firebaseFile.secureFilePath)/google-services.json
         echo %GOOGLE_APPLICATION_CREDENTIALS%
