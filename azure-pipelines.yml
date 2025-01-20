@@ -21,6 +21,13 @@ stages:
         keyVaultName: 'firebase-dsitribution'
         secretName: 'firebase-service-account'
         secretValue: '$(FIREBASE_SERVICE_ACCOUNT_JSON)'
+       
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          nvm use 22
+      displayName: "use node 22"
     - task: Npm@1
       inputs:
         command: custom
