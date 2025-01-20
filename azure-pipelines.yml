@@ -19,8 +19,12 @@ stages:
         command: custom
         customCommand: install -g firebase-tools
       displayName: "Install firebase-tools"
-    - bash: | 
-        firebase.cmd --version
+    - task: Npm@1
+      inputs:
+        command: custom
+        customCommand: firebase --version
+      displayName: "firebase-version"
+
     - bash: | 
         set GOOGLE_APPLICATION_CREDENTIALS=$(firebaseFile.secureFilePath)/google-services.json
         echo %GOOGLE_APPLICATION_CREDENTIALS%
