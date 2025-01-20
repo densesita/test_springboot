@@ -27,7 +27,7 @@ stages:
         customCommand: install -g firebase-tools
       displayName: "Install firebase-tools"
     - bash: | 
-        export GOOGLE_APPLICATION_CREDENTIALS=$(FIREBASE_SERVICE_ACCOUNT_JSON)
+        set GOOGLE_APPLICATION_CREDENTIALS=$(FIREBASE_SERVICE_ACCOUNT_JSON)
         echo $GOOGLE_APPLICATION_CREDENTIALS
         firebase appdistribution:distribute $(publish_path_android) --release-notes "Nueva versión" --app 1:401768650475:android:037e6d5a12bf46698a10ae --debug
         displayName: "Setting GOOGLE_APPLICATION_CREDENTIALS env"
