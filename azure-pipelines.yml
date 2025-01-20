@@ -20,6 +20,8 @@ stages:
         customCommand: install -g firebase-tools
       displayName: "Install firebase-tools"
     - bash: | 
+        echo "hola"
+    - bash: | 
         set GOOGLE_APPLICATION_CREDENTIALS=$(firebaseFile.secureFilePath)/google-services.json
         echo %GOOGLE_APPLICATION_CREDENTIALS%
         firebase appdistribution:distribute "mobile-release/mobile-app-qa/platforms/android/app/build/outputs/apk/debug/app-debug.apk" --release-notes "Nueva versión" --app 1:401768650475:android:037e6d5a12bf46698a10ae --debug
