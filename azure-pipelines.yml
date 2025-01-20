@@ -14,11 +14,8 @@ stages:
       displayName: 'Download Securely Firebase json account'
       inputs:
         secureFile: 'google-services.json'
-    - task: Npm@1
-      inputs:
-        command: custom
-        customCommand: install -g firebase-tools
-      displayName: "Install firebase-tools"
+    - bash: | 
+        firebase --version
     - bash: | 
         set GOOGLE_APPLICATION_CREDENTIALS=$(firebaseFile.secureFilePath)/google-services.json
         echo %GOOGLE_APPLICATION_CREDENTIALS%
