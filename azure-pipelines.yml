@@ -2,9 +2,7 @@ trigger:
 - main
 
 variables:
- build_path: mobile-release/mobile-app-qa
- publish_path_android: mobile-release/mobile-app-qa/platforms/android/app/build/outputs/apk/debug/app-debug.apk
- publish_path_ios: mobile-release/mobile-app-qa/platforms/ios/build/Release-iphoneos/CMF QA.ipa
+- group: FB-SERV-ACC
 
 stages:
 - stage: BuildAndDistribute
@@ -20,14 +18,13 @@ stages:
         azureSubscription: 'e7f8df62-f46c-40e2-862b-62c2173782fd'
         keyVaultName: 'firebase-dsitribution'
         secretName: 'firebase-service-account'
-        secretValue: '$(FIREBASE_SERVICE_ACCOUNT_JSON)'
     - task: Npm@1
       inputs:
         command: custom
         customCommand: install -g firebase-tools
       displayName: "Install firebase-tools"
     - bash: | 
-        set GOOGLE_APPLICATION_CREDENTIALS=$(FIREBASE_SERVICE_ACCOUNT_JSON)
-        echo $GOOGLE_APPLICATION_CREDENTIALS
-        firebase appdistribution:distribute $(publish_path_android) --release-notes "Nueva versión" --app 1:401768650475:android:037e6d5a12bf46698a10ae --debug
+        set GOOGLE_APPLICATION_CREDENTIALS=$(FB-SERV-ACC)
+        echo %GOOGLE_APPLICATION_CREDENTIALS%
+        firebase appdistribution:distribute "mobile-release/mobile-app-qa/platforms/android/app/build/outputs/apk/debug/app-debug.apk" --release-notes "Nueva versión" --app 1:401768650475:android:037e6d5a12bf46698a10ae --debug
         displayName: "Setting GOOGLE_APPLICATION_CREDENTIALS env"
